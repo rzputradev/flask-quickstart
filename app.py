@@ -1,4 +1,4 @@
-from flask import Flask, url_for
+from flask import Flask, url_for, request
 from markupsafe import escape
 
 app = Flask(__name__)
@@ -40,3 +40,20 @@ with app.test_request_context():
     print(url_for('login'))
     print(url_for('login', next='/'))
     print(url_for('profile', username='Reza'))
+
+
+# HTTP method
+@app.route('/register', methods=['GET', 'POST'])
+def register():
+    if request.method == "POST":
+        return "Process register"
+    else:
+        return "Show register form"
+
+@app.get('/profile')
+def profile_get():
+    return "Profile get"
+
+@app.post('/profile')
+def profile_post():
+    return "Profile post"
