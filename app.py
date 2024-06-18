@@ -1,4 +1,4 @@
-from flask import Flask, url_for, request
+from flask import Flask, url_for, request, render_template
 from markupsafe import escape
 
 app = Flask(__name__)
@@ -8,9 +8,9 @@ def index():
     return "Hello world!"
 
 # Html escaping
-@app.route('/hello/<name>')
-def hello(name):
-    return f'Hello {escape(name)}!'
+# @app.route('/hello/<name>')
+# def hello(name):
+#     return f'Hello {escape(name)}!'
 
 
 # Variable rules
@@ -57,3 +57,9 @@ def profile_get():
 @app.post('/profile')
 def profile_post():
     return "Profile post"
+
+
+@app.route('/hello/')
+@app.route('/hello/<name>')
+def hello(name=None):
+    return render_template('hello.html', person=name)
